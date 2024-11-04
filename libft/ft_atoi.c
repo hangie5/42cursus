@@ -6,52 +6,45 @@
 /*   By: tjlin <tjlin@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/10 16:14:06 by tjlin         #+#    #+#                 */
-/*   Updated: 2024/10/10 17:26:40 by tjlin         ########   odam.nl         */
+/*   Updated: 2024/11/04 17:07:00 by tjlin         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	spaces(char *str, int	*ptr_i)
+static int	sign_spaces(const char *str, int *ptr_i)
 {
-	int	count;
-	int	i;
+	int		sign;
+	int		i;
 
 	i = 0;
-	count = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	sign = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	while (str[i] == 48 || str[i] == 45)
+	if (str[i] == '-')
 	{
-		if (str[i] == 45)
-			count *= -1;
+		sign = -1;
 		i++;
 	}
-	*ptr_i = 1;
-	return (count);
+	else if (str[i] == '+')
+		i++;
+	*ptr_i = i;
+	return (sign);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	sign;
 	int	result;
 	int	i;
 
 	result = 0;
-	sign = spaces(str, &i);
-	while (str[i] && str[i] >= 48 && str[i] <= 57)
+	sign = sign_spaces(str, &i);
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		result *= 10;
-		result += str[i];
-		str[i] = 48;
+		result += str[i] - '0';
 		i++;
 	}
-	result *= 10;
-	return (result);
+	return (result * sign);
 }
-
-// int main(void)
-// {
-//     char *s = "   ---+--+1234ab56789";
-//     printf ("%d", ft_atoi(s));
-// }

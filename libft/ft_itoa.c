@@ -3,59 +3,53 @@
 /*                                                        ::::::::            */
 /*   ft_itoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: han <han@student.codam.nl>                   +#+                     */
+/*   By: tjlin <tjlin@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/10/24 16:39:30 by han           #+#    #+#                 */
-/*   Updated: 2024/10/24 19:27:31 by han           ########   odam.nl         */
+/*   Created: 2024/11/04 17:01:35 by tjlin         #+#    #+#                 */
+/*   Updated: 2024/11/04 17:01:36 by tjlin         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int int_len(long nbr);
-static char *pre_conv(int len);
-
-char *ft_itoa(int n)
+static int	ft_nbrlen(int n)
 {
-    int len;
-    int i;
-    char *result;
-    long nbr;
+	int	i;
 
-    nbr = n;
-    len = int_len(nbr);
-    result = pre_conv(len);
-    if (!result)
-        return (NULL);
-    {
-        result[i] = ((nbr % 10) + 48);
-        nbr = nbr / 10;
-        i--;
-    }
-
-    tmp = malloc((len + 1) * sizeof(char));
-    if (!tmp)
-        return (NULL);
-    tmp[0] = '0';
-    return (tmp);
+	i = 0;
+	if (n <= 0)
+		i = 1;
+	while (n != 0)
+	{
+		n /= 10;
+		++i;
+	}
+	return (i);
 }
 
-static int_len(long nbr)
+char	*ft_itoa(int n)
 {
-    int count;
+	int			len;
+	char		*str;
+	const char	*nbr;
 
-    count = 0;ß
-    if (nbr < 0)
-    {
-        count++;
-        nbr = -nbr;
-    }
-    if (nbr == 0)
-        count++;
-    while (nbr != 0)
-    {
-        nbr /= 10;
-        count++;
-    }
-    return (count);
+	len = ft_nbrlen(n);
+	str = malloc(sizeof(char) * (len + 1));
+	nbr = "0123456789";
+	if (!str)
+		return (0);
+	str[len] = '\0';
+	if (n == 0)
+		str[0] = '0';
+	if (n < 0)
+		str[0] = '-';
+	while (n)
+	{
+		if (n > 0)
+			str[--len] = nbr[n % 10];
+		else
+			str[--len] = nbr[n % 10 * -1];
+		n /= 10;
+	}
+	return (str);
 }
