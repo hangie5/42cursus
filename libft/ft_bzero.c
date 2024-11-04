@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: tjlin <tjlin@student.codam.nl>               +#+                     */
+/*   By: han <han@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/10/10 18:28:13 by tjlin         #+#    #+#                 */
-/*   Updated: 2024/10/10 18:32:44 by tjlin         ########   odam.nl         */
+/*   Created: 2024/10/11 14:14:12 by han           #+#    #+#                 */
+/*   Updated: 2024/10/11 14:14:13 by han           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	char	*temp_ptr;
+	char *temp_ptr;
 
 	temp_ptr = (char *) s;
-	while (n > 0)
+	while(n > 0)
 	{
 		*(temp_ptr++) = 0;
 		n--;
