@@ -1,48 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_write.c                                         :+:    :+:            */
+/*   ft_printf_unsigned.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tjlin <tjlin@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/02/02 20:30:02 by tjlin         #+#    #+#                 */
-/*   Updated: 2025/02/02 20:30:03 by tjlin         ########   odam.nl         */
+/*   Created: 2025/02/02 20:29:33 by tjlin         #+#    #+#                 */
+/*   Updated: 2025/02/03 20:00:50 by tjlin         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+static void	printout(unsigned int nb)
 {
-	write(fd, &c, 1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
-
-void	ft_putstr_fd(char const *s, int fd)
-{
-	write(fd, s, ft_strlen(s));
-}
-
-int	print_str(char *str)
-{
-	int	len;
-
-	len = 0;
-	if (str == NULL)
+	if (nb > 9)
+		print_unsigned(nb / 10);
+	if (nb <= 9)
 	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
+		ft_putchar_fd(nb + 48, 1);
+		return ;
 	}
-	while (str[len])
-		ft_putchar_fd(str[len++], 1);
-	return (len);
+	ft_putchar_fd((nb % 10) + 48, 1);
+}
+
+int	print_unsigned(unsigned int nb)
+{
+	unsigned int	i;
+
+	printout(nb);
+	i = 1;
+	while (nb > 9)
+	{
+		nb = nb / 10;
+		i++;
+	}
+	return (i);
 }
